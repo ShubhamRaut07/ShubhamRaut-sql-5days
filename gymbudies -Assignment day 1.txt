@@ -1,0 +1,79 @@
+1. select all people whos cost is geater than 10000
+2. select all the people who live in pune
+3. select all the people who live in mumbai and have age >24
+4. select all the people who have joined for only 3 months
+5. fetch name and bmi for all memebers;
+6. show all the memebers in descending order of their height
+7. show birth year of memembers based on their age for city mumbai
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+create table gymbudies
+(
+	id number(5) primary key,
+	name varchar2(20) not null,
+	age number(3) not null check(age>0),
+	joining_date date,
+	expiration_date date,
+	cost number(5) not null,
+	city varchar2(30) default 'mumbai' not null,
+	height number(5) not null,
+	weight number(5) not null,
+	created_at date default sysdate
+);
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+SQL> create sequence gymbudies_seq
+  2  start with 1
+  3  increment by 1;
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+insert into gymbudies(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values (gymbudies_seq.nextval,'shuhbam',24,'06-feb-2023','06-jun-2023',10000,'Satara',5,70);
+
+insert into gymbudies(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values (gymbudies_seq.nextval,'kishor',24,'06-jan-2023','06-july-2023',10500,'Satara',5.5,75);
+
+insert into gymbudies(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values (gymbudies_seq.nextval,'anirudh',22,'06-feb-2023','06-aug-2023',10000,'Sangli',6,80);
+
+insert into gymbudies(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values (gymbudies_seq.nextval,'manish',22,'06-mar-2023','06-sep-2023',10500,'Kolhapur',5,70);
+
+insert into gymbudies(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values (gymbudies_seq.nextval,'pragati',21,'06-aug-2023','06-dec-2023',15000,'Dhule',5.4,60);
+
+insert into gymbudies(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values (gymbudies_seq.nextval,'kalyani',24,'06-feb-2023','06-jun-2023',8000,'Pune',5.2,55);
+
+insert into gymbudies(id,name,age,joining_date,expiration_date,cost,city,height,weight)
+values (gymbudies_seq.nextval,'Pratik',26,'06-jul-2023','06-nov-2023',10000,'Pune',5,90);
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+select * from gymbudies;
+
+select * from gymbudies where COST>10000;
+
+select * from gymbudies where CITY='Pune';
+
+select * from gymbudies where CITY='Pune' and age>24;
+
+select name, (weight/((height/100)*(height/100))) as bmi from gymbudies;
+
+select * from gymbudies order by age;
+
+select * from gymbudies order by age desc;
+
+SQL> select name, EXTRACT(YEAR FROM sysdate) - age as BIRTH_YEAR from gymbudies where city = 'Pune';
+
+
+
+
+
